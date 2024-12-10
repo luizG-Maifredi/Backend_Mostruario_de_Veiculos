@@ -64,7 +64,7 @@ class storeController {
     public function selectAllStores(){
         $this->conn = Database::getConnection();
         
-        $sql =  "SELECT * FROM loja";
+        $sql =  "SELECT * FROM loja WHERE status=1";
         $stmt = $this->conn->prepare($sql);
         
         // Executa a consulta

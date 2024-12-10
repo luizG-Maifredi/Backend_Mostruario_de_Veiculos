@@ -70,7 +70,7 @@ require_once( __DIR__ . "/../Config/database.php");
     public function selectAllUsers(){
         $this->conn = Database::getConnection();
         
-        $sql =  "SELECT * FROM usuario";
+        $sql =  "SELECT * FROM usuario WHERE status=1";
         $stmt = $this->conn->prepare($sql);
         // Executa a consulta
         $stmt->execute();

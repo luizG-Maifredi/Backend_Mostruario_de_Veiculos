@@ -1,26 +1,41 @@
 <?php
 class Database {
-    private static $host = 'localhost';
-    private static $db_name = 'concessionaria';
-    private static $username = 'root';
-    private static $password = 'root';
-    public static  $conn;
+    private static $uri = "mysql://avnadmin:AVNS_OGjIpkUMvd0GqM2b176@concessionaria-trabalho001.f.aivencloud.com:14594/defaultdb?ssl-mode=REQUIRED";
+    private static $fields;
+    private static $conn;
 
-
-    public static function getConnection(){
-        self::$conn = null;
-
-        try {
-            self::$conn = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$db_name, self::$username, self::$password);
-            self::$conn->exec("set names utf8");
-        } catch(PDOException $exception) {
-            echo "Erro na conexão: " . $exception->getMessage();
+    // Inicializa os campos do URI
+    private static function parseUri() {
+        if (!self::$fields) {
+            self::$fields = parse_url(self::$uri);
         }
+    }
+
+    public static function getConnection() {
+        self::parseUri(); // Garante que $fields está configurado
+
+        if (self::$conn === null) {
+            try {
+                $dsn = "mysql:host=" . self::$fields["host"];
+                $dsn .= ";port=" . self::$fields["port"];
+                $dsn .= ";dbname=defaultdb";
+                $dsn .= ";sslmode=verify-ca;sslrootcert=" . __DIR__ . "/ca.pem"; // Certificado no mesmo diretório
+
+                self::$conn = new PDO($dsn, self::$fields["user"], self::$fields["pass"]);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                // Testa a conexão
+                $stmt = self::$conn->query("SELECT VERSION()");
+                print("Conexão bem-sucedida: MySQL versão " . $stmt->fetch()[0]);
+            } catch (PDOException $exception) {
+                die("Erro na conexão: " . $exception->getMessage());
+            }
+        }
+
         return self::$conn;
     }
 
-    public static function closeConnection(){
-        return self::$conn = null;
+    public static function closeConnection() {
+        self::$conn = null;
     }
 }
-?>

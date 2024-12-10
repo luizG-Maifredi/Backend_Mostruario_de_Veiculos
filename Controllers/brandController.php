@@ -64,7 +64,7 @@ class brandController {
     public function selectAllBrands(){
         $this->conn = Database::getConnection();
         
-        $sql =  "SELECT * FROM marca";
+        $sql =  "SELECT * FROM marca WHERE status=1";
         $stmt = $this->conn->prepare($sql);
         
         // Executa a consulta

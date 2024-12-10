@@ -82,7 +82,7 @@ require_once( __DIR__ . "/../Config/database.php");
     public function selectAllCars(){
         $this->conn = Database::getConnection();
         
-        $sql =  "SELECT * FROM carro";
+        $sql =  "SELECT * FROM carro WHERE status=1";
         $stmt = $this->conn->prepare($sql);
         // Executa a consulta
         $stmt->execute();

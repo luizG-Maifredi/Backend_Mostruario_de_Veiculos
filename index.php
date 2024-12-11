@@ -1,6 +1,6 @@
 <?php
 chdir(__DIR__);
-echo getcwd();
+//echo getcwd();
 require_once("./Routes/routes.php");
 
 $route = $_SERVER['REQUEST_URI'];

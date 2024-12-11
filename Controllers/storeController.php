@@ -1,6 +1,6 @@
 <?php
 require_once( __DIR__ . "/../Config/database.php");
-echo "/n cheguei no controler lojas";
+//echo "/n cheguei no controler lojas";
 
 class storeController {
     private $conn;

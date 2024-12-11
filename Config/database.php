@@ -1,7 +1,7 @@
 <?php
 class Database {
     private static $uri = "mysql://avnadmin:AVNS_OGjIpkUMvd0GqM2b176@concessionaria-trabalho001.f.aivencloud.com:14594/defaultdb?ssl-mode=REQUIRED";
-    private static $fields;
+    private static $fields; 
     private static $conn;
 
     // Inicializa os campos do URI

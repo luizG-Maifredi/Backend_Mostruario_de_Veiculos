@@ -1,6 +1,6 @@
 <?php
 chdir(__DIR__);
-require_once(__DIR__ . "/Routes/routes.php");
+require_once("./Routes/routes.php");
 
 $route = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];

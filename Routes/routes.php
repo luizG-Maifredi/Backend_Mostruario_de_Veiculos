@@ -3,6 +3,7 @@ require_once(__DIR__ . "/../Controllers/carController.php");
 require_once(__DIR__ . "/../Controllers/userController.php");
 require_once(__DIR__ . "/../Controllers/storeController.php");
 require_once(__DIR__ . "/../Controllers/brandController.php");
+echo "cheguei";
 
 function handleRequest($route, $method)
 {

@@ -5,6 +5,19 @@ require_once(__DIR__ . "/../Controllers/storeController.php");
 require_once(__DIR__ . "/../Controllers/brandController.php");
 //echo "cheguei";
 
+error_reporting(0);
+ini_set('display_errors', 0);
+
+header("Access-Control-Allow-Origin: http://localhost:4200");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Access-Control-Allow-Credentials: true");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 function handleRequest($route, $method)
 {
     if ($method === 'GET') {
@@ -56,20 +69,14 @@ function handleRequest($route, $method)
         if ($route === '/carros') {
             $controller = new carController();
             $controller->insertCar();
-        }
-        
-        elseif ($route === "/users") {
+        } elseif ($route === "/users") {
             $controller = new userController();
             $controller->insertUser();
-        }
-
-        elseif ($route === "/lojas") {
+        } elseif ($route === "/lojas") {
             // A rota é para adicionar uma nova loja
             $controller = new storeController();
             $controller->insertStore();
-        }
-
-        elseif ($route === "/marcas") {
+        } elseif ($route === "/marcas") {
             // A rota é para adicionar uma nova brand
             $controller = new brandController();
             $controller->insertBrand();
@@ -80,22 +87,16 @@ function handleRequest($route, $method)
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new carController();
             $controller->updateCar($id);
-        }
-
-        elseif (preg_match('/^\/users\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/users\/\d+$/', $route)) {
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new userController();
             $controller->updateUser($id);
-        }
-
-        elseif (preg_match('/^\/lojas\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/lojas\/\d+$/', $route)) {
             // A rota é para atualizar uma loja específica
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new storeController();
             $controller->updateStore($id);
-        }
-
-        elseif (preg_match('/^\/marcas\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/marcas\/\d+$/', $route)) {
             // A rota é para atualizar uma brand específica
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new brandController();
@@ -107,22 +108,16 @@ function handleRequest($route, $method)
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new carController();
             $controller->deleteCar($id);
-        }
-
-        elseif (preg_match('/^\/users\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/users\/\d+$/', $route)) {
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new userController();
             $controller->deleteUser($id);
-        }
-
-        elseif (preg_match('/^\/lojas\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/lojas\/\d+$/', $route)) {
             // A rota é para deletar uma loja específica
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new storeController();
             $controller->deleteStore($id);
-        }
-
-        elseif (preg_match('/^\/marcas\/\d+$/', $route)) {
+        } elseif (preg_match('/^\/marcas\/\d+$/', $route)) {
             // A rota é para deletar uma brand específica
             $id = explode('/', $route)[2]; // Extrai o ID da URL
             $controller = new brandController();

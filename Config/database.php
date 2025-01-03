@@ -1,17 +1,20 @@
 <?php
-class Database {
+class Database
+{
     private static $uri = "mysql://avnadmin:AVNS_OGjIpkUMvd0GqM2b176@concessionaria-trabalho001.f.aivencloud.com:14594/defaultdb?ssl-mode=REQUIRED";
-    private static $fields; 
+    private static $fields;
     private static $conn;
 
     // Inicializa os campos do URI
-    private static function parseUri() {
+    private static function parseUri()
+    {
         if (!self::$fields) {
             self::$fields = parse_url(self::$uri);
         }
     }
 
-    public static function getConnection() {
+    public static function getConnection()
+    {
         self::parseUri(); // Garante que $fields está configurado
 
         if (self::$conn === null) {
@@ -26,7 +29,7 @@ class Database {
 
                 // Testa a conexão
                 $stmt = self::$conn->query("SELECT VERSION()");
-                print("Conexão bem-sucedida: MySQL versão " . $stmt->fetch()[0]);
+
             } catch (PDOException $exception) {
                 die("Erro na conexão: " . $exception->getMessage());
             }
@@ -35,7 +38,8 @@ class Database {
         return self::$conn;
     }
 
-    public static function closeConnection() {
+    public static function closeConnection()
+    {
         self::$conn = null;
     }
 }

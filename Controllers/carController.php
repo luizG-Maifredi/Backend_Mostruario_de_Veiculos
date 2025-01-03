@@ -57,7 +57,10 @@ class carController
 
         // Fecha a conexão com o banco de dados
         $this->conn = Database::closeConnection();
-        echo json_encode(["response" => "o carro " . $data['nome'] . " foi inserido"], JSON_PRETTY_PRINT);
+        echo json_encode([
+            "response" => "o carro " . $data['nome'] . " foi inserido",
+            "imagem" => $data['imagem']
+        ], JSON_PRETTY_PRINT);
     }
 
     public function selectCar($id)
